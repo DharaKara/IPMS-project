@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Policy Management - My Website
+{% endblock %}
+
+{% block styles %}
+    {{ super() }}
+    <style>
+        /* Additional styles for policies.html */
+        .form-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .form-container form {
+            flex: 0 0 calc(50% - 10px);
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+        }
+        .form-container form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-container form input[type="text"],
+        .form-container form input[type="number"],
+        .form-container form input[type="submit"] {
+            width: calc(100% - 20px);
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-container form input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+        .form-container form input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!-- Content specific to policies.html -->
+    <div class="container">
+        <h1>Policy Management</h1>
+        
+        <ul>
+            <h2>Existing Policies</h2>
+            {% for policy in policies %}
+            <li>{{ policy.name }} - Type: {{ policy.type }}, Premium: R{{ policy.premium }}</li>
+            {% endfor %}
+        </ul><br>
+
+        <div class="form-container">
+            <form action="/add_policy" method="POST">
+                <h2>Add New Policy</h2>
+                <label for="type">Type:</label>
+                <input type="text" id="type" name="type" required><br>
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required><br>
+                <label for="premium">Premium:</label>
+                <input type="number" id="premium" name="premium" required><br>
+                <input type="submit" value="Add Policy">
+            </form>
+            
+            <form action="/update_policy" method="POST">
+                <h2>Update A Policy</h2>
+                <label for="policy_id">Policy ID:</label>
+                <input type="number" id="policy_id" name="policy_id" required><br>
+                <label for="type">New Type:</label>
+                <input type="text" id="type" name="type" required><br>
+                <label for="name">New Name:</label>
+                <input type="text" id="name" name="name" required><br>
+                <label for="premium">New Premium:</label>
+                <input type="number" id="premium" name="premium" required><br>
+                <input type="submit" value="Update Policy">
+            </form>
+
+            <form action="/delete_policy" method="POST">
+                <h2>Delete A Policy</h2>
+                <label for="policy_id">Policy ID:</label>
+                <input type="number" id="policy_id" name="policy_id" required><br>
+                <input type="submit" value="Delete Policy">
+            </form>
+        </div>
+
+        {% if message %}
+        <p>{{ message }}</p>
+        {% endif %}
+    </div>
+{% endblock %}
