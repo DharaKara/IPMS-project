@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs</title>
+    <style>
+        /* Custom styles */
+        .card-header {
+            background-color: #f8f9fa;
+            cursor: pointer; /* Change cursor to pointer when hovering over card header */
+        }
+
+        .card-header button {
+            text-align: left;
+            width: 100%;
+        }
+
+        .card-body {
+            padding: 10px 20px;
+            display: none; /* Hide all card bodies by default */
+        }
+
+        .btn-link {
+            color: #007bff;
+            text-decoration: none; /* Remove underline from button */
+        }
+
+        .btn-link:hover {
+            text-decoration: none;
+        }
+
+        /* Show the card body when the accordion is open */
+        .card-header.active + .collapse {
+            display: block;
+        }
+
+        /* Icon rotation animation */
+        .btn-link[aria-expanded="true"] .fa-chevron-down {
+            transform: rotate(180deg);
+            transition: transform 0.3s ease; /* Smooth transition for icon rotation */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">FAQs</h1>
+        <div class="accordion" id="accordionFAQs">
+            {% for faq in faqs %}
+            <div class="card">
+                <div class="card-header" id="heading{{ loop.index }}">
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapse{{ loop.index }}" aria-expanded="false" aria-controls="collapse{{ loop.index }}">
+                            {{ faq.question }}
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="collapse{{ loop.index }}" class="collapse" aria-labelledby="heading{{ loop.index }}" data-parent="#accordionFAQs">
+                    <div class="card-body">
+                        {{ faq.answer }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

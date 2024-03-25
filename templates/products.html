@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Document</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+<style>
+  body {
+    font-family: Roboto, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .product-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 20px; /* Added padding for spacing */
+  }
+
+  .product-container {
+    width: 250px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  .product-poster {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    border-top-left-radius: 12px; /* Adjusted border radius */
+    border-top-right-radius: 12px; /* Adjusted border radius */
+  }
+
+  .product-details {
+    padding: 10px;
+    background-color: #f9f9f9; /* Added background color */
+  }
+
+  .product-name {
+    text-align: center;
+    margin: 0;
+  }
+
+  .product-summary {
+    margin-top: 10px;
+  }
+
+  .product-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #4caf50;
+    color: white;
+  }
+
+  .btn-danger {
+    background-color: #f44336;
+  }
+</style>
+</head>
+<body>
+<div class="product-list-container">
+  {% for policy in policies %}
+  <div class="product-container">
+    <img class="product-poster" src="{{ policy.image_link }}" alt="{{ policy.name }}" />
+    <div class="product-details">
+      <h2 class="product-name">{{ policy.name }}</h2>
+      <p class="product-summary">{{ policy.summary }}</p>
+      <div class="product-actions">
+        <a href="/products/{{ policy.id }}" class="btn">View More</a>
+        <button class="btn btn-danger">Delete</button>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+</body>
+</html>
